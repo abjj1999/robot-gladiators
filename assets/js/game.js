@@ -11,55 +11,59 @@ var enemyNames = ['Roborto', "Android", "Trumble"]
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+window.alert("Welcome to Robot Gladiators!");
 
 var fight = function(enemyName) {
-    window.alert("Welcome to Robot Gladiators!");
-    var choice = window.prompt("would you like to fight or skip? Enter 'fight' or 'skip' to choose.");
-    if (choice === "fight" || choice === "FIGHT"){
-        
-        //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
-        enemyHealth = enemyHealth - playerAttack;
-    // Log a resulting message to the console so we know that it worked.
-        console.log( playerName + " attacked " + enemyName+ ". "+enemyName + " now has "+ enemyHealth + " health remaining.")
+    while(enemyHealth > 0){
+        var choice = window.prompt("would you like to fight or skip? Enter 'fight' or 'skip' to choose.");
+        if (choice === "fight" || choice === "FIGHT"){
+            
+            //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
+            enemyHealth = enemyHealth - playerAttack;
+        // Log a resulting message to the console so we know that it worked.
+            console.log( playerName + " attacked " + enemyName+ ". "+enemyName + " now has "+ enemyHealth + " health remaining.")
 
-        if (enemyHealth <= 0){
-            window.alert(enemyName + " has died.!");
+            if (enemyHealth <= 0){
+                window.alert(enemyName + " has died.!");
+            }
+            else { 
+                window.alert(enemyName + " still has "+ enemyHealth + " health left.");
+            }
+        // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
+            playerHealth = playerHealth - enemyAttack;
+
+        // Log a resulting message to the console so we know that it worked.
+            console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
+
+            if (playerHealth <= 0){
+                window.alert(playerName + " has died!");
+            }
+            else {
+                window.alert(playerName + " still has " + playerHealth + " health left.");
+            }
         }
-        else { 
-            window.alert(enemyName + " still has "+ enemyHealth + " health left.");
-        }
-    // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-        playerHealth = playerHealth - enemyAttack;
+        else if (choice === "skip" || choice === "SKIP") {
+            // confirm payer wants to skip
+            var confirmSkip = window.confirm("Are you sure you'd like to skip??");
 
-    // Log a resulting message to the console so we know that it worked.
-        console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
-
-        if (playerHealth <= 0){
-            window.alert(playerName + " has died!");
+            //if yes(true), leave the game
+            if (confirmSkip) {
+                window.alert(playerName + " has decided to skip this fight. Goodbye!");
+                playerMoney = playerMoney - 2;
+                console.log(playerName + " has just been dedcuted "+ playerMoney + " Points.");
+            }
+            else {
+                fight();
+            }
         }
         else {
-            window.alert(playerName + " still has " + playerHealth + " health left.");
+            window.alert("comn man");
         }
-    }
-    else if (choice === "skip" || choice === "SKIP") {
-        // confirm payer wants to skip
-        var confirmSkip = window.confirm("Are you sure you'd like to skip??");
-
-        //if yes(true), leave the game
-        if (confirmSkip) {
-            window.alert(playerName + " has decided to skip this fight. Goodbye!");
-            playerMoney = playerMoney - 2;
-            console.log(playerName + " has just been dedcuted "+ playerMoney + " Points.");
-        }
-        else {
-            fight();
-        }
-    }
-    else {
-        window.alert("comn man")
     }
 }
 
-for (var i = 0; i < enemyNames.length; ++i){
-    fight(enemyNames[i])
+for (var i = 0; i < enemyNames.length; i++) {
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
 }
